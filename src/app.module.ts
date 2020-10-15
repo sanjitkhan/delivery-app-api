@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ItemsModule } from './components/items/items.module';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { ProductsModule } from './components/product/product.module';
+import { config } from './config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/Appdb'),
-    ItemsModule
+    TypegooseModule.forRoot(config.mongodbUrl, { useNewUrlParser: true }),
+    ProductsModule
   ],
 })
 
