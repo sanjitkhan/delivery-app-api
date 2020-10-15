@@ -2,6 +2,8 @@ import { prop } from "@typegoose/typegoose";
 import { Brand, Category, ProductDto } from "./product.dto";
 
 export class Product implements ProductDto {
+  id: string;
+
   @prop()
   name: string;
 

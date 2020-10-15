@@ -1,4 +1,4 @@
-import { IsArray, IsCurrency, IsEnum, IsMongoId, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export enum Brand {
   GODREJ = 'Godrej'
@@ -10,6 +10,10 @@ export enum Category {
 }
 
 export class ProductDto {
+  @IsMongoId()
+  @IsOptional()
+  id?: string;
+
   @IsString()
   name: string;
 
@@ -17,17 +21,13 @@ export class ProductDto {
   brand: Brand;
 
   @IsArray()
+  @IsOptional()
   @IsEnum(Category, { each: true })
   categories?: Category[];
 
   @IsNumber()
   stock?: number = 0;
 
-  @IsCurrency()
+  @IsNumber()
   price: number;
-}
-
-export class ParamDto {
-  @IsMongoId()
-  id: string;
 }

@@ -6,7 +6,7 @@ export abstract class CrudService<ComponentModel, ComponentDto> {
   protected constructor(private readonly model: ReturnModelType<any>) {}
 
   async find(condition: FilterQuery<Document>): Promise<ComponentModel> {
-    return this.model.find(condition).exec();
+    return this.model.findOne(condition).exec();
   }
 
   async findAll(): Promise<ComponentModel[]> {
@@ -39,7 +39,20 @@ export abstract class CrudService<ComponentModel, ComponentDto> {
     try {
       return this.model.deleteMany(condition);
     } catch (e) {
-      Logger.error("Unable to delete product");
+      Logger.error("Unable to delete some products");
+      Logger.debug(e);
+      return {
+        n: 0,
+        ok: 0
+      }
+    }
+  }
+
+  async removeAll(): Promise<{ n?: number; ok?: number}> {
+    try {
+      return this.model.remove({});
+    } catch (e) {
+      Logger.error("Unable to delete all products");
       Logger.debug(e);
       return {
         n: 0,
@@ -50,18 +63,18 @@ export abstract class CrudService<ComponentModel, ComponentDto> {
 
   async updateSomeProperties(condition: FilterQuery<Document>, product: Partial<ComponentDto>): Promise<ComponentModel> {
     try {
-      return this.model.update(condition, product);
+      return this.model.findOneAndUpdate(condition, product, { useFindAndModify: false, new: true });
     } catch (e) {
-      Logger.error("Unable to delete product");
+      Logger.error("Unable to update product");
       Logger.debug(e);
     }
   }
 
   async updateAllProperties(condition: FilterQuery<Document>, product: ComponentDto): Promise<ComponentModel> {
     try {
-      return await this.model.update(condition, product, { overwrite: true });
+      return await this.model.findOneAndUpdate(condition, product, { useFindAndModify: false, overwrite: true, new: true });
     } catch (e) {
-      Logger.error("Unable to delete product");
+      Logger.error("Unable to update product");
       Logger.debug(e);
     }
   }

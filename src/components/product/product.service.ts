@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { ReturnModelType } from '@typegoose/typegoose';
+import { getModelForClass, ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import { CrudService } from '../crud/crud.service';
 import { ProductDto } from './product.dto';
 import { Product } from './product.model';
 
 @Injectable()
-export class ProductsService extends CrudService<Product, ProductDto> {
+export class ProductService extends CrudService<Product, ProductDto> {
   constructor(
     @InjectModel(Product) model: ReturnModelType<typeof Product>
   ) {
@@ -31,6 +31,10 @@ export class ProductsService extends CrudService<Product, ProductDto> {
 
   async deleteManyProductsByIds(ids: string[]): Promise<{ n?: number; ok?: number}> {
     return this.removeMany({ _id: { $in: ids } });
+  }
+
+  async deleteAllProducts(): Promise<{ n?: number; ok?: number}> {
+    return this.removeAll();
   }
 
   async updatePartialProductById(id: string, product: Partial<ProductDto>): Promise<Product> {

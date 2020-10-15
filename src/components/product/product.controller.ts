@@ -2,12 +2,12 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ProductDto } from './product.dto';
 import { Product } from './product.model';
-import { ProductsService } from './product.service';
+import { ProductService } from './product.service';
 
 @Controller('products')
 @ApiTags('Products')
-export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
 
   @Post()
   @ApiOperation({
@@ -15,7 +15,7 @@ export class ProductsController {
     description: 'Add a product',
   })
   async create(@Body() product: ProductDto): Promise<Product> {
-    return await this.productsService.createProduct(product);
+    return await this.productService.createProduct(product);
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class ProductsController {
     description: 'Fetch all products',
   })
   async findAll(): Promise<Product[]> {
-    return await this.productsService.findAllProducts();
+    return await this.productService.findAllProducts();
   }
 
   @Get(':id')
@@ -37,7 +37,7 @@ export class ProductsController {
     type: String,
   })
   async find(@Param() params): Promise<Product> {
-    return this.productsService.findProductById(params.id);
+    return this.productService.findProductById(params.id);
   }
 
   @Delete(':id')
@@ -50,7 +50,7 @@ export class ProductsController {
     type: String,
   })
   async removeOne(@Param() params): Promise<{ n?: number, ok?: number }> {
-    return this.productsService.deleteOneProductById(params.id);
+    return this.productService.deleteOneProductById(params.id);
   }
 
   @Delete()
@@ -59,7 +59,7 @@ export class ProductsController {
     description: 'Delete many products by ids',
   })
   async removeMany(@Body() ids: string[]): Promise<{ n?: number, ok?: number }> {
-    return this.productsService.deleteManyProductsByIds(ids);
+    return this.productService.deleteManyProductsByIds(ids);
   }
 
   @Patch(':id')
@@ -72,7 +72,7 @@ export class ProductsController {
     type: String,
   })
   async updateSomeProperties(@Param() params, @Body() product: Partial<ProductDto>): Promise<Product> {
-    return this.productsService.updatePartialProductById(params.id, product);
+    return this.productService.updatePartialProductById(params.id, product);
   }
 
   @Put(':id')
@@ -85,6 +85,6 @@ export class ProductsController {
     type: String,
   })
   async updateAllProperties(@Param() params, @Body() product: ProductDto): Promise<Product> {
-    return await this.productsService.updateWholeProductById(params.id, product);
+    return await this.productService.updateWholeProductById(params.id, product);
   }
 }
