@@ -4,7 +4,8 @@ const PORT = 3000;
 
 export enum Env {
   PROD = 'production',
-  TEST = 'test'
+  TEST = 'test',
+  CI = 'ci'
 }
 
 export const schemaOptions: SchemaOptions = {
@@ -29,7 +30,7 @@ const {
 } = process.env;
 
 export const config = {
-  mongodbUrl: `mongodb://localhost:27017/${NODE_ENV === Env.TEST ? 'Testdb' : 'Appdb'}`,
+  mongodbUrl: `mongodb://localhost:27017/${NODE_ENV}_db`,
   port: PORT,
   swaggerSchemaName: 'swagger',
   swaggerServerUrl: 'http://localhost:' + PORT + '/api-json'
