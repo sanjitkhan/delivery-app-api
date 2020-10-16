@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { getModelForClass, ReturnModelType } from '@typegoose/typegoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
 import { CrudService } from '../crud/crud.service';
 import { ProductDto } from './product.dto';
