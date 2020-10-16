@@ -1,5 +1,7 @@
 import { prop } from "@typegoose/typegoose";
-import { Brand, Category, ProductDto } from "./product.dto";
+import { Brand } from "../brand/brand.model";
+import { Category } from "../category/category.model";
+import { ProductDto } from "./product.dto";
 
 export class Product implements ProductDto {
   id: string;
@@ -7,17 +9,15 @@ export class Product implements ProductDto {
   @prop()
   name: string;
 
-  @prop({
-    enum: Brand
-  })
-  brand: Brand;
+  @prop({ ref: () => Brand })
+  brand: string;
 
   @prop({
     _id: false,
-    enum: Category,
+    ref: () => Category,
     type: String
   })
-  categories?: Category[];
+  categories?: string[];
 
   @prop({
     default: 0

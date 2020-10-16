@@ -10,7 +10,7 @@ const path = '/products';
 describe('Products', () => {
   let productModel;
   let productService: ProductService;
-  let productWithId: Product = mockProduct; // id will be added after 2nd test case where we add a product
+  let productWithId: Product = mockProduct; // id will be added after the test case where we add a product
   let pathToProduct = '';
 
   beforeAll(async () => {

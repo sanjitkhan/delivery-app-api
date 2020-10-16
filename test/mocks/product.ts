@@ -1,10 +1,8 @@
-import { Brand, Category } from "../../src/components/product/product.dto";
-
 export const mockProduct = {
   id: '',
   name: "product #1 ",
-  brand: Brand.GODREJ,
-  categories: [Category.ICE_CREAM],
+  brand: '',
+  categories: [],
   stock: 10,
   price: 100.50
 }
