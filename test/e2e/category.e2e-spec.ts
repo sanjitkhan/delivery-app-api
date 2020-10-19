@@ -7,7 +7,7 @@ import { mockCategory } from '../mocks/category';
 
 const path = '/categories';
 
-describe('Categories', () => {
+describe('Categories e2e', () => {
   let categoryModel;
   let categoryService: CategoryService;
   let categoryWithId: Category = mockCategory; // id will be added after the test case where we add a category

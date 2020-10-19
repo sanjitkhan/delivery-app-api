@@ -7,7 +7,7 @@ import { mockProduct } from '../mocks/product';
 
 const path = '/products';
 
-describe('Products', () => {
+describe('Products e2e', () => {
   let productModel;
   let productService: ProductService;
   let productWithId: Product = mockProduct; // id will be added after the test case where we add a product
