@@ -7,7 +7,7 @@ import { mockBrand } from '../mocks/brand';
 
 const path = '/brands';
 
-describe('Brands', () => {
+describe('Brands e2e', () => {
   let brandModel;
   let brandService: BrandService;
   let brandWithId: Brand = mockBrand; // id will be added after the test case where we add a brand

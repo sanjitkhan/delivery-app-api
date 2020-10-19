@@ -30,6 +30,7 @@ class TestApplication {
   get(options: RequestOptions): Promise<request.Response> {
     return this.request
       .get(options.path)
+      .set(options.headers || {})
       .query(options.query);
   }
 
